@@ -1,5 +1,5 @@
 #! /bin/bash
-export VD_PATH=`pwd/..`
+export VD_PATH=`(cd ..;pwd)`
 ct() {
 	echo -ne "\033[$1;1m$2\033[0m"
 }
@@ -11,7 +11,7 @@ do
 	then
 		echo -ne "Now running test : "
 		ct 33 "$file : "
-		error=`node $file`
+		error=`node $file 2>&1`
 		if [ ! -z "$error" ]
 		then
 			cnt=`expr $cnt + 1`
