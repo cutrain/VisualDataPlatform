@@ -1,5 +1,5 @@
 #! /bin/bash
-export VD_PATH=`pwd`
+export VD_PATH=`pwd/..`
 ct() {
 	echo -ne "\033[$1;1m$2\033[0m"
 }
