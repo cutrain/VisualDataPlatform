@@ -15,6 +15,7 @@ export default class extends Component {
       <Route path='/' component={Layout}>
         <IndexRoute component={Homepage} />
         <Route path='/component' component={Comp} />
+        <Redirect path="*" to="/" />
       </Route>
     </Router>
   }

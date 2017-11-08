@@ -5,5 +5,20 @@ body {
 }
 
 .nav-bar {
+  display: inline-table;
+  float: left;
+}
+
+.container {
+  display: inline-table;
+  float: left;
+  overflow-y: hidden;
+}
+
+.listContainer {
   width: 200px;
+  display: inline-table;
+  background-color: #efefef;
+  height: 100vh;
+  overflow-y: hidden;
 }

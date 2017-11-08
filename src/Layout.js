@@ -15,22 +15,23 @@ export default class extends Component {
     super();
   }
   render() {
-    return [
+    return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div class="nav-bar">
           <Paper style={{height: '100vh'}}>
-            <Menu>
-              <Link to="/"><MenuItem primaryText="home" leftIcon={<Home />} /></Link>
-              <Link to="/experiment"><MenuItem primaryText="experiment" leftIcon={<DeviceHub />} /></Link>
-              <Link to="/database"><MenuItem primaryText="database" leftIcon={<Storage />} /></Link>
-              <Link to="/component"><MenuItem primaryText="component" leftIcon={<Extension />} /></Link>
-              <Link to="/model"><MenuItem primaryText="model" leftIcon={<LinearScale />} /></Link>
+            <Menu style={{width: '130px'}}>
+              <Link to="/"><MenuItem primaryText="首頁" leftIcon={<Home />} /></Link>
+              <Link to="/experiment"><MenuItem primaryText="實驗" leftIcon={<DeviceHub />} /></Link>
+              <Link to="/database"><MenuItem primaryText="數據庫" leftIcon={<Storage />} /></Link>
+              <Link to="/component"><MenuItem primaryText="組件" leftIcon={<Extension />} /></Link>
+              <Link to="/model"><MenuItem primaryText="模型" leftIcon={<LinearScale />} /></Link>
             </Menu>
           </Paper>
-        </div>,
+        </div>
         <div class="container">
+        {this.props.children}
         </div>
       </MuiThemeProvider>
-    ]
+    )
   }
 }
