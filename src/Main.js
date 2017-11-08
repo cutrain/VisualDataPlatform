@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Router, Route } from 'react-router-dom';
-import Homepage from './Homepage'
+import {Route, IndexRoute, Router, browserHistory, Redirect} from 'react-router';
+import Homepage from './Homepage';
+import Comp from './Comp';
+import Layout from './Layout';
 
 export default class extends Component {
   constructor() {
@@ -9,8 +11,11 @@ export default class extends Component {
   }
 
   render() {
-    return <BrowserRouter basename="/">
-      <Route path='/' component={Homepage} />
-    </BrowserRouter>
+    return <Router history={browserHistory}>
+      <Route path='/' component={Layout}>
+        <IndexRoute component={Homepage} />
+        <Route path='/component' component={Comp} />
+      </Route>
+    </Router>
   }
 }
