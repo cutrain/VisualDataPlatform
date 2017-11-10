@@ -5,3 +5,5 @@
 - ffi
 - ref
 
+- cmake, build-essential
+- c++/boost

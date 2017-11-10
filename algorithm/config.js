@@ -1,6 +1,6 @@
 var PATH = process.env.VD_PATH;
 var path = require('path');
-var so_path = path.resolve(PATH, 'algorithm');
+var so_path = path.resolve(PATH, 'algorithm/lib');
 var test_path = path.resolve(PATH, 'test');
 
 module.exports = {
