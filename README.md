@@ -14,8 +14,11 @@ sudo apt-get install libboost-all-dev
 sudo apt-get install scons
 cd algorithm
 tar -zxvf jsoncpp-src-0.5.0.tar.gz
-cd jsoncpp-src-0.5.0.tar.gz
+cd jsoncpp-src-0.5.0
 scons platform=linux-gcc
+cp libs/*/*.a libs/libjson.a
+cd ..
+make
 
 npm install ffi ref
 ```

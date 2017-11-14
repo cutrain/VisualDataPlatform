@@ -1,6 +1,6 @@
 var ffi = require("ffi");
 
-var api = ffi.Library("./api", {
+var api = ffi.Library("./lib/api", {
 	"Create" : ['string', ['string', 'string', 'string'] ],
 	"Delete" : ['string', ['string'] ],
 	"Connect" : ['string', ['string', 'string', 'string', 'string'] ],
