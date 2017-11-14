@@ -13,7 +13,6 @@ class Main extends Component {
   }
   render() {
     return (
-
       <Router history={browserHistory}>
         <Route path='/' component={Layout}>
           <IndexRoute component={Homepage} />

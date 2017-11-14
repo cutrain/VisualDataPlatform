@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { DragSource } from 'react-dnd';
 
 // Drag sources and drop targets only interact
@@ -67,7 +67,10 @@ function collect(connect, monitor) {
   };
 }
 
-class ComponentContainer {
+class ComponentContainer extends Component {
+  constructor() {
+    super();
+  }
   render() {
     // Your component receives its own props as usual
     const { id } = this.props;
