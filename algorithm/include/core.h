@@ -22,17 +22,23 @@ extern "C" {
 #define TYPE_NOT_FOUND 5
 #define EDGE_NOT_FOUND 6
 #define PARAM_NOT_SPECIFY 7
+#define RANGE_EXCCED 8
 
 using std::string;
 typedef std::pair<string, string> PairString;
+typedef boost::variant<int, double> Element;
+
+struct ElemVisitor : public boost::static_visitor<string> {
+public:
+	string operator()(int i) const { return std::to_string(i);}
+	string operator()(double d) const { return std::to_string(d);}
+};
 
 // TODO: optimize data structure
-class Data {
-private:
+struct Data {
 	string type;
 	std::vector<int> dim;
-	std::vector<boost::variant<int, double> > value;
-public:
+	std::vector<Element> value;
 };
 typedef Data* DataPtr;
 typedef std::map<string, DataPtr> DataPtrMap;

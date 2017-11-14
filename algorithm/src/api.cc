@@ -7,11 +7,11 @@
 extern "C" {
 #endif
 
+char retstr[100];
 char* print_message(int message_code, char* append_message=(char*)"") {
 	// TODO: map code to message & use recycle memory
-	char* str = new char(10);
-	sprintf(str, "%d / %s", message_code, append_message);
-	return str;
+	sprintf(retstr, "%d / %s", message_code, append_message);
+	return retstr;
 }
 
 char* Create(char* name, char* type, char* param) {
@@ -52,11 +52,36 @@ char* GetValue(char* name, char* out_port, int start_row, int end_row) {
 	string sout_port = string(out_port);
 	if (graphManager.CheckName(sname) == NAME_NOT_FOUND)
 		return print_message(NAME_NOT_FOUND, (char*)"getvalue");
+	if (start_row < -1 || end_row < -1)
+		return print_message(RANGE_EXCCED, (char*)"getvalue");
+
 	NodePtr node = graphManager.GetNode(sname);
 	DataPtr value = node->GetValue(sout_port);
 	// TODO:return value with json
+	if (start_row >= value->dim[0] || end_row >= value->dim[0])
+		return print_message(RANGE_EXCCED, (char*)"getvalue");
+	if (start_row == -1)
+	{
+		start_row = 0;
+		end_row = value->dim[0];
+	}
+	if (end_row == -1)
+		end_row = value->dim[0];
 	
-	return print_message(0, (char*)"getvalue");
+	int step = 1;
+	for (int i = 1;i < (int)value->dim.size(); ++ i)
+		step *= value->dim[i];
+	Json::Value json;
+	json["type"] = value->type;
+	for (int i = 0;i < (int)value->dim.size(); ++ i)
+		json["dim"][i] = value->dim[i];
+	for (int i = start_row; i < end_row; ++ i)
+	{
+		int base = i * step;
+		for (int j = 0;j < step; ++ j)
+			json["value"].append(boost::apply_visitor(ElemVisitor(), value->value[base+j]));
+	}
+	return (char*)json.toStyledString().c_str();
 }
 
 char* Run(char* name) {
