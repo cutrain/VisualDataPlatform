@@ -1,11 +1,13 @@
+CC := g++
 SRC := src
 LIB := lib
-CFLAGS := -O3
-LIBS := -l./jsoncpp-src-0.5.0/libs/*/*.so
-FLAGS := -I./jsoncpp-src-0.5.0/include/json
+CFLAGS := -O3 -std=c++11
+LIBS:= -ljson
+FLAGS := -I ./jsoncpp-src-0.5.0/include -L ./jsoncpp-src-0.5.0/libs
 
-all: $(LIB)/misc.so
+
+all: $(LIB)/api.so
 	@echo "\033[32;1mfinished\033[0m"
 
-$(LIB)/%.so: $(SRC)/%.cc
-	$(CC) -shared -fPIC $(CFLAGS) $(LIBS) $(FLAGS) -o $@ $^
+$(LIB)/api.so: $(SRC)/main.cc
+	$(CC) -shared -fPIC $(CFLAGS) $(FLAGS) $(LIBS) -o $@ $^

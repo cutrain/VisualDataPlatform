@@ -2,11 +2,10 @@
 
 #include <cstring>
 #include <string>
+#include <json/json.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// TODO : return message with json
 
 char* print_message(int message_code, char* append_message=(char*)"") {
 	// TODO: map code to message & use recycle memory
@@ -24,6 +23,7 @@ char* Create(char* name, char* type, char* param) {
 }
 
 char* Delete(char* name) {
+	// TODO: delete related edge
 	string sname = string(name);
 	int ret = graphManager.Delete(sname);
 	return print_message(ret, (char*)"delete");
@@ -55,6 +55,7 @@ char* GetValue(char* name, char* out_port, int start_row, int end_row) {
 	NodePtr node = graphManager.GetNode(sname);
 	DataPtr value = node->GetValue(sout_port);
 	// TODO:return value with json
+	
 	return print_message(0, (char*)"getvalue");
 }
 
@@ -69,10 +70,12 @@ char* Run(char* name) {
 }
 
 char* RunTo(char* name) {
+	// TODO
 	return (char*)"ERROR occurred without define";
 }
 
 char* RunAll() {
+	// TODO
 	return (char*)"ERROR occurred without define";
 }
 

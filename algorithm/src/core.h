@@ -26,10 +26,13 @@ extern "C" {
 using std::string;
 typedef std::pair<string, string> PairString;
 
-struct Data {
+// TODO: optimize data structure
+class Data {
+private:
 	string type;
 	std::vector<int> dim;
 	std::vector<boost::variant<int, double> > value;
+public:
 };
 typedef Data* DataPtr;
 typedef std::map<string, DataPtr> DataPtrMap;
