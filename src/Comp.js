@@ -14,7 +14,7 @@ export default class extends Component {
       <div className="container">
         <Paper>
           <div className="listContainer">
-
+            <ComponentContainer />
           </div>
         </Paper>
       </div>
