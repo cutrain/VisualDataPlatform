@@ -2,11 +2,12 @@
 #define INPUT_H_
 
 #include "core.h"
+#include <boost/filesystem.hpp>
 
 
 class InputNode : public NodeBase {
 protected:
-	string path_;
+	boost::filesystem::path path_;
 public:
 	InputNode() {type_ = "InputNode";}
 	~InputNode();

@@ -64,12 +64,12 @@ char* GetValue(char* name, char* out_port, int start_row, int end_row) {
 	}
 	if (end_row == -1)
 		end_row = value->dim[0];
-	
+
 	int step = 1;
 	for (int i = 1;i < (int)value->dim.size(); ++ i)
 		step *= value->dim[i];
 	Json::Value json;
-	json["type"] = value->type;
+	json["type"] = value->data_type;
 	for (int i = 0;i < (int)value->dim.size(); ++ i)
 		json["dim"][i] = value->dim[i];
 	for (int i = start_row; i < end_row; ++ i)

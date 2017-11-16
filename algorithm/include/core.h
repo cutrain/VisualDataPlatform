@@ -3,9 +3,10 @@
 
 #include <set>
 #include <map>
-#include <algorithm>
+#include <ctime>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <boost/shared_ptr.hpp>
 #include <boost/variant.hpp>
 
@@ -20,21 +21,41 @@
 #define EDGE_NOT_FOUND 6
 #define PARAM_NOT_SPECIFY 7
 #define RANGE_EXCCED 8
+#define PATH_NOT_SPECIFY 9
+
+
 
 using std::string;
 typedef std::pair<string, string> PairString;
-typedef boost::variant<int, double> Element;
+typedef boost::variant<int, unsigned int, char, unsigned char, double, string> Element;
 
 struct ElemVisitor : public boost::static_visitor<string> {
 public:
 	string operator()(int i) const { return std::to_string(i);}
+	string operator()(unsigned int ui) const { return std::to_string(ui);}
+	string operator()(char c) const { return std::to_string(c);}
+	string operator()(unsigned char uc) const { return std::to_string(uc);}
 	string operator()(double d) const { return std::to_string(d);}
+	string operator()(const string& s) const {return s;}
 };
+
+struct ElemTypeVisitor : public boost::static_visitor<string> {
+public:
+	string operator()(int i) const { return "int32_t";}
+	string operator()(unsigned int ui) const { return "uint32_t";}
+	string operator()(char c) const { return "int8_t";}
+	string operator()(unsigned char uc) const { return "uint8_t";}
+	string operator()(double d) const { return "double";}
+	string operator()(const string& s) const {return "string";}
+};
+
 
 // TODO: optimize data structure
 struct Data {
-	string type;
+	string data_type;
 	std::vector<int> dim;
+	std::vector<string> name;
+	std::vector<string> column_type;
 	std::vector<Element> value;
 };
 typedef Data* DataPtr;
@@ -46,14 +67,21 @@ protected:
 	string type_;
 	string name_;
 	DataPtrMap out_value_;
+	time_t last_run_time_;
+	time_t last_modify_time_;
 public:
-	NodeBase() {type_ = "NodeBase";}
+	NodeBase() {
+		type_ = "NodeBase";
+		last_run_time_=time_t(0);
+		last_modify_time_=std::time(NULL);
+	}
 	virtual ~NodeBase()=0;
 	virtual NodeBase* Create(const string& name)=0;
 	virtual int Set(const string& param)=0;
 	virtual int Run(const DataPtrMap& input)=0;
-	DataPtr GetValue(const string& port);
-	string GetType();
+
+	DataPtr GetValue (const string& port);
+	string GetType() const;
 };
 typedef NodeBase* NodePtr;
 typedef std::map<string, NodePtr> NodePtrMap;
@@ -68,16 +96,17 @@ private:
 	// In PairString, the first string represent node name, the second string represent node port
 	EdgeSet edges_;
 public:
-	int CheckName(const string& name);
-	int CheckType(const string& type);
+	int CheckName(const string& name) const;
+	int CheckType(const string& type) const;
+	// GetNode will not check the name, please use after confirm
+	NodePtr GetNode(const string& name) const;
+	// GetInput will not check the name, please use after confirm
+	DataPtrMap GetInput(const string& name) const;
+
 	int Create(const string& name, const string& type, const string& param);
 	int Delete(const string& name);
 	int Connect(const string& out_node, const string& out_port, const string& in_node, const string& in_port);
 	int Disconnect(const string& out_node, const string& out_port, const string& in_node, const string& in_port);
-	// GetNode will not check the name, please use after confirm
-	NodePtr GetNode(const string& name);
-	// GetInput will not check the name, please use after confirm
-	DataPtrMap GetInput(const string& name);
 };
 extern GraphManager graphManager;
 extern NodePtrMap typeMap;

@@ -20,17 +20,17 @@ NodeBase::~NodeBase() {
 	}
 }
 
-string NodeBase::GetType() {
+string NodeBase::GetType() const {
 	return type_;
 }
 
 
 // GraphManager
-inline int GraphManager::CheckName(const string& name) {
+inline int GraphManager::CheckName(const string& name) const {
 	return (nodes_.find(name) != nodes_.end()) ? (NAME_EXIST) : (NAME_NOT_FOUND);
 }
 
-inline int GraphManager::CheckType(const string& type) {
+inline int GraphManager::CheckType(const string& type) const {
 	return (typeMap.find(type) != typeMap.end()) ? (TYPE_EXIST) : (TYPE_NOT_FOUND);
 }
 
@@ -90,11 +90,11 @@ int GraphManager::Disconnect
 	return 0;
 }
 
-NodePtr GraphManager::GetNode(const string& name) {
-	return nodes_[name];
+NodePtr GraphManager::GetNode(const string& name) const {
+	return nodes_.at(name);
 }
 
-DataPtrMap GraphManager::GetInput(const string& name) {
+DataPtrMap GraphManager::GetInput(const string& name) const  {
 	// TODO: check whether 'ret' will be destroy after return
 	DataPtrMap ret;
 	for (EdgeSet::iterator iter = edges_.begin(); iter != edges_.end(); ++iter)
