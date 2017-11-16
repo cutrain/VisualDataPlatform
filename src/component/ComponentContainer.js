@@ -81,8 +81,7 @@ class ComponentContainer extends Component {
 
     return connectDragSource(
       <div>
-        I am a draggable card number {id}
-        {isDragging && ' (and I am being dragged now)'}
+        {this.props.id}
       </div>
     );
   }

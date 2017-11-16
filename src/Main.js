@@ -6,6 +6,7 @@ import Comp from './Comp';
 import Layout from './Layout';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import Work from './Work';
 
 class Main extends Component {
   constructor() {
@@ -16,9 +17,11 @@ class Main extends Component {
       <Router history={browserHistory}>
         <Route path='/' component={Layout}>
           <IndexRoute component={Homepage} />
-          <Route path='/component' component={Comp} />
-          <Redirect path="*" to="/" />
+          <Route path='/work' component={Work} >
+            <IndexRoute component={Comp} />
+          </Route>
         </Route>
+        <Redirect path="*" to="/" />
       </Router>
     );
   }

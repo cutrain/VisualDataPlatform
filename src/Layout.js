@@ -22,10 +22,10 @@ export default class extends Component {
             <Paper style={{height: '100vh'}}>
               <Menu style={{width: '130px'}}>
                 <Link to="/"><MenuItem primaryText="首頁" leftIcon={<Home />} /></Link>
-                <Link to="/experiment"><MenuItem primaryText="實驗" leftIcon={<DeviceHub />} /></Link>
-                <Link to="/database"><MenuItem primaryText="數據庫" leftIcon={<Storage />} /></Link>
-                <Link to="/component"><MenuItem primaryText="組件" leftIcon={<Extension />} /></Link>
-                <Link to="/model"><MenuItem primaryText="模型" leftIcon={<LinearScale />} /></Link>
+                <Link to="/work/experiment"><MenuItem primaryText="實驗" leftIcon={<DeviceHub />} /></Link>
+                <Link to="/work/database"><MenuItem primaryText="數據庫" leftIcon={<Storage />} /></Link>
+                <Link to="/work/"><MenuItem primaryText="組件" leftIcon={<Extension />} /></Link>
+                <Link to="/work/model"><MenuItem primaryText="模型" leftIcon={<LinearScale />} /></Link>
               </Menu>
             </Paper>
           </div>
