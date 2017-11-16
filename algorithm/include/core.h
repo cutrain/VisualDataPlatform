@@ -9,9 +9,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/variant.hpp>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 // TODO: define ERROE TYPE
 #define OK 0
@@ -97,7 +94,4 @@ extern Data DataNull;
 void init();
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif // CORE_H_

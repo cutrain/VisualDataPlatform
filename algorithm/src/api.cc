@@ -3,9 +3,6 @@
 #include <cstring>
 #include <string>
 #include <json/json.h>
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 char retstr[100];
 char* print_message(int message_code, char* append_message=(char*)"") {
@@ -104,6 +101,3 @@ char* RunAll() {
 	return (char*)"ERROR occurred without define";
 }
 
-#ifdef __cplusplus
-}
-#endif

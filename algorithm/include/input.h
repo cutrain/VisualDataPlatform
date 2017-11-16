@@ -3,9 +3,6 @@
 
 #include "core.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 class InputNode : public NodeBase {
 protected:
@@ -19,7 +16,4 @@ public:
 };
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif // INPUT_H_

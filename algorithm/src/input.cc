@@ -1,8 +1,5 @@
 #include "input.h"
 #include <boost/algorithm/string.hpp>
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 InputNode::~InputNode() {
 }
@@ -28,6 +25,3 @@ int InputNode::Run(const DataPtrMap& input) {
 	return 0;
 }
 
-#ifdef __cplusplus
-}
-#endif

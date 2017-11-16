@@ -2,10 +2,6 @@
 
 #include <cstdlib>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 
 // NodeBase
 DataPtr NodeBase::GetValue(const string& port) {
@@ -115,6 +111,3 @@ DataPtrMap GraphManager::GetInput(const string& name) {
 	return ret;
 }
 
-#ifdef __cplusplus
-};
-#endif
