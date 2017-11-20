@@ -6,6 +6,7 @@
 #include <ctime>
 #include <string>
 #include <vector>
+#include <iostream>
 #include <algorithm>
 #include <boost/shared_ptr.hpp>
 #include <boost/variant.hpp>
@@ -24,6 +25,21 @@
 #define PATH_NOT_SPECIFY 9
 
 
+inline void print(const char* str, ...)
+{
+#ifdef DEBUG
+	va_list args;
+	printf(str, args);
+#endif
+}
+
+template <typename T>
+inline void sprint(const T& var)
+{
+#ifdef DEBUG
+	std::cout << var << std::endl;
+#endif
+}
 
 using std::string;
 typedef std::pair<string, string> PairString;

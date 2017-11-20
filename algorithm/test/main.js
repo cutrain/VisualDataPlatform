@@ -2,6 +2,8 @@ var ffi = require("ffi");
 console.log("in");
 
 var api = ffi.Library("../lib/api.so", {
+	"Create" : ["string", ["string", "string", "string"]],
+	"Delete" : ["string", []],
 	"Connect" : ["string" , ["string", "string", "string", "string"]],
 	"Disconnect" : ["string" , ["string", "string", "string", "string"]],
 	"GetValue" : ["string" , ["string", "string", "int", "int"]],
@@ -19,7 +21,9 @@ var param = {
 };
 
 console.log(param);
-var message = api.Create("input1", "input", param);
+console.log("transfer to string");
+console.log(JSON.stringify(param));
+var message = api.Create("input1", "input", JSON.stringify(param));
 console.log(message);
 message = api.Run("input1");
 console.log(message);

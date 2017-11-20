@@ -86,12 +86,17 @@ const char* GetValue(char* name, char* out_port, int start_row, int end_row) {
 }
 
 const char* Run(char* name) {
+	print("api::Run Enter\n");
 	string sname = string(name);
 	if (graphManager.CheckName(sname) == NAME_NOT_FOUND)
 		return print_message(NAME_NOT_FOUND, "run");
+	print("api::Run 1\n");
 	DataPtrMap datas = graphManager.GetInput(sname);
+	print("api::Run 2\n");
 	NodePtr node = graphManager.GetNode(sname);
+	print("api::Run 3\n");
 	int ret = node->Run(datas);
+	print("api::Run Leave\n");
 	return print_message(ret, "run");
 }
 

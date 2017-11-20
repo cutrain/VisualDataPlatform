@@ -1,6 +1,7 @@
 #include "core.h"
 
 #include <cstdlib>
+#include <cstdarg>
 
 
 // NodeBase
@@ -35,13 +36,18 @@ inline int GraphManager::CheckType(const string& type) const {
 }
 
 int GraphManager::Create(const string& name, const string& type, const string& param) {
+	print("in graphManager.Creeate Enter\n");
 	if (NAME_EXIST == CheckName(name))
 		return NAME_EXIST;
 	if (TYPE_NOT_FOUND == CheckType(type))
 		return TYPE_NOT_FOUND;
+	print("in graphManager.Creeate 1\n");
 	NodePtr node = typeMap[type]->Create(name);
+	print("in graphManager.Creeate 2\n");
 	node->Set(param);
+	print("in graphManager.Creeate 3\n");
 	nodes_[name] = node;
+	print("in graphManager.Creeate Leave\n");
 	return 0;
 }
 
