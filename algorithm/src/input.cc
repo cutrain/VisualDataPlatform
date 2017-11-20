@@ -86,6 +86,7 @@ int InputNode::Run(const DataPtrMap& input) {
 
 	string str;
 	std::vector<string> substr;
+	int row_cnt = 0;
 	while (getline(ifs, str))
 	{
 		// TODO: use csv parser (known bug : string with ',' char will be split)
@@ -101,12 +102,14 @@ int InputNode::Run(const DataPtrMap& input) {
 			std::vector<string>& tmp_vs = tmp_data->column_type;
 			print("2\n");
 			if (tmp_vs[i].compare("string") == 0)
-				out_value_["output"]->value[i].push(substr[i]);
+				out_value_["output"]->value.push_back(substr[i]);
 			else
-				out_value_["output"]->value[i].push(std::stod(substr[i]));
+				out_value_["output"]->value.push_back(std::stod(substr[i]));
 		}
 		print("InputNode::Run loop end\n");
+		++ row_cnt;
 	}
+	out_value_["output"]->dim[0] = row_cnt;
 	print("InputNode::Run Leave\n");
 	return 0;
 }

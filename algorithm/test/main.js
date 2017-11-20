@@ -27,3 +27,7 @@ var message = api.Create("input1", "input", JSON.stringify(param));
 console.log(message);
 message = api.Run("input1");
 console.log(message);
+message = api.GetValue("input1","output",-1,-1);
+console.log(message);
+var js = JSON.parse(message);
+console.log(js);

@@ -49,15 +49,19 @@ const char* Disconnect(char* out_node, char* out_port, char* in_node, char* in_p
 }
 
 const char* GetValue(char* name, char* out_port, int start_row, int end_row) {
+	print("API::GetValue Enter\n");
 	string sname = string(name);
 	string sout_port = string(out_port);
 	if (graphManager.CheckName(sname) == NAME_NOT_FOUND)
 		return print_message(NAME_NOT_FOUND, "getvalue");
 	if (start_row < -1 || end_row < -1)
 		return print_message(RANGE_EXCCED, "getvalue");
+	print("API::GetValue 1\n");
 
 	NodePtr node = graphManager.GetNode(sname);
+	print("API::GetValue 2\n");
 	DataPtr value = node->GetValue(sout_port);
+	print("API::GetValue 3\n");
 	// TODO:return value with json
 	if (start_row >= value->dim[0] || end_row >= value->dim[0])
 		return print_message(RANGE_EXCCED, "getvalue");
@@ -82,7 +86,14 @@ const char* GetValue(char* name, char* out_port, int start_row, int end_row) {
 		for (int j = 0;j < step; ++ j)
 			json["value"].append(boost::apply_visitor(ElemVisitor(), value->value[base+j]));
 	}
-	return json.toStyledString().c_str();
+	print("API::GetValue Leave\n");
+
+	// TODO: change it into a recycleable memory allocate
+	// NOTE: These code will cause memory leak, please attention
+	string s = json.toStyledString();
+	char* ret = new char[s.length()+1];
+	memcpy(ret, s.c_str(), s.length());
+	return ret;
 }
 
 const char* Run(char* name) {
