@@ -11,7 +11,7 @@
 ```bash
 sudo apt-get install build-essential cmake
 sudo apt-get install libboost-all-dev
-make
+cd algorithm;make
 
 npm install ffi ref
 ```

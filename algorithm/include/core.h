@@ -27,14 +27,11 @@
 
 using std::string;
 typedef std::pair<string, string> PairString;
-typedef boost::variant<int, unsigned int, char, unsigned char, double, string> Element;
+typedef boost::variant<int, double, string> Element;
 
 struct ElemVisitor : public boost::static_visitor<string> {
 public:
 	string operator()(int i) const { return std::to_string(i);}
-	string operator()(unsigned int ui) const { return std::to_string(ui);}
-	string operator()(char c) const { return std::to_string(c);}
-	string operator()(unsigned char uc) const { return std::to_string(uc);}
 	string operator()(double d) const { return std::to_string(d);}
 	string operator()(const string& s) const {return s;}
 };
@@ -42,9 +39,6 @@ public:
 struct ElemTypeVisitor : public boost::static_visitor<string> {
 public:
 	string operator()(int i) const { return "int32_t";}
-	string operator()(unsigned int ui) const { return "uint32_t";}
-	string operator()(char c) const { return "int8_t";}
-	string operator()(unsigned char uc) const { return "uint8_t";}
 	string operator()(double d) const { return "double";}
 	string operator()(const string& s) const {return "string";}
 };
@@ -122,5 +116,5 @@ extern Data DataNull;
 // include: typeMap
 void init();
 
-
 #endif // CORE_H_
+
