@@ -1,15 +1,16 @@
 var ffi = require("ffi");
 
-var api = ffi.Library("./api", {
+var api = ffi.Library("./lib/api", {
 	"Create" : ['string', ['string', 'string', 'string'] ],
 	"Delete" : ['string', ['string'] ],
 	"Connect" : ['string', ['string', 'string', 'string', 'string'] ],
 	"Disconnect" : ['string', ['string', 'string', 'string', 'string'] ],
 	"GetValue" : ['string', ['string', 'string', 'int', 'int'] ],
-	"Run" : ['string', ['string', 'string'] ],
+	"Run" : ['string', ['string'] ],
 	"RunTo" : ['string', ['string'] ],
 	"RunAll" : ['string', [] ],
 });
+
 
 var message = api.Create("input1", "input", "path:'.'");
 console.log(message);

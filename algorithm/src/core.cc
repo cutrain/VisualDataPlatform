@@ -1,10 +1,7 @@
 #include "core.h"
 
 #include <cstdlib>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <cstdarg>
 
 
 // NodeBase
@@ -24,28 +21,33 @@ NodeBase::~NodeBase() {
 	}
 }
 
-string NodeBase::GetType() {
+string NodeBase::GetType() const {
 	return type_;
 }
 
 
 // GraphManager
-inline int GraphManager::CheckName(const string& name) {
+inline int GraphManager::CheckName(const string& name) const {
 	return (nodes_.find(name) != nodes_.end()) ? (NAME_EXIST) : (NAME_NOT_FOUND);
 }
 
-inline int GraphManager::CheckType(const string& type) {
+inline int GraphManager::CheckType(const string& type) const {
 	return (typeMap.find(type) != typeMap.end()) ? (TYPE_EXIST) : (TYPE_NOT_FOUND);
 }
 
 int GraphManager::Create(const string& name, const string& type, const string& param) {
+	print("in graphManager.Creeate Enter\n");
 	if (NAME_EXIST == CheckName(name))
 		return NAME_EXIST;
 	if (TYPE_NOT_FOUND == CheckType(type))
 		return TYPE_NOT_FOUND;
+	print("in graphManager.Creeate 1\n");
 	NodePtr node = typeMap[type]->Create(name);
+	print("in graphManager.Creeate 2\n");
 	node->Set(param);
+	print("in graphManager.Creeate 3\n");
 	nodes_[name] = node;
+	print("in graphManager.Creeate Leave\n");
 	return 0;
 }
 
@@ -94,11 +96,11 @@ int GraphManager::Disconnect
 	return 0;
 }
 
-NodePtr GraphManager::GetNode(const string& name) {
-	return nodes_[name];
+NodePtr GraphManager::GetNode(const string& name) const {
+	return nodes_.at(name);
 }
 
-DataPtrMap GraphManager::GetInput(const string& name) {
+DataPtrMap GraphManager::GetInput(const string& name) const  {
 	// TODO: check whether 'ret' will be destroy after return
 	DataPtrMap ret;
 	for (EdgeSet::iterator iter = edges_.begin(); iter != edges_.end(); ++iter)
@@ -115,6 +117,3 @@ DataPtrMap GraphManager::GetInput(const string& name) {
 	return ret;
 }
 
-#ifdef __cplusplus
-};
-#endif

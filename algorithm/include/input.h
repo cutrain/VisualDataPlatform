@@ -2,14 +2,12 @@
 #define INPUT_H_
 
 #include "core.h"
+#include <boost/filesystem.hpp>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 class InputNode : public NodeBase {
 protected:
-	string path_;
+	boost::filesystem::path path_;
 public:
 	InputNode() {type_ = "InputNode";}
 	~InputNode();
@@ -19,7 +17,4 @@ public:
 };
 
 
-#ifdef __cplusplus
-}
-#endif
 #endif // INPUT_H_
