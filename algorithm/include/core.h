@@ -13,6 +13,7 @@
 
 
 // TODO: define ERROE TYPE
+#define NOT_DEFINED -1
 #define OK 0
 #define NAME_EXIST 1
 #define TYPE_EXIST 2
